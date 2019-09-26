@@ -69,4 +69,7 @@ def save_name(world: dict, monsters_name: str) -> str:
     <a href='/'>Return to the start</a>
     """.format(where=world['location'], monster_name=world['name'])
 
-
+inventory = []
+def add_item(item: str):
+    #Adds items to the player's inventory
+    inventory.append(item)
