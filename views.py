@@ -3,6 +3,7 @@ from route_helper import simple_route
 GAME_HEADER = """
 <h1>Welcome to adventure quest!</h1>
 <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
+<p align = "right">Monsters you have encountered.</p>
 """
 
 
@@ -17,7 +18,8 @@ def hello(world: dict) -> str:
     return GAME_HEADER+"""You are in the Lair of the Corgis.<br>
     
     <a href="goto/lair">Go further into the lair.</a><br>
-    <a href="goto/entrance">Retreat.</a>"""
+    <a href="goto/entrance">Retreat.</a><br>
+    <a href="goto/forest">Explore.</a>"""
 
 
 ENCOUNTER_MONSTER = """
@@ -26,7 +28,7 @@ You are in {}. You found a monster!<br>
 
 <!-- Image taken from site that generates random Corgi pictures-->
 <img src="http://placecorgi.com/260/180" /><br>
-    
+<img src="/static/Mike_Wazowski.jpg" /><br>   
 What is its name?
 
 <!-- Form allows you to have more text entry -->    
@@ -66,3 +68,5 @@ def save_name(world: dict, monsters_name: str) -> str:
     <br><br>
     <a href='/'>Return to the start</a>
     """.format(where=world['location'], monster_name=world['name'])
+
+
