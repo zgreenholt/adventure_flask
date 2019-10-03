@@ -22,6 +22,7 @@ def hello(world: dict) -> str:
     <a href="goto/forest">Explore.</a>"""
 
 
+
 ENCOUNTER_MONSTER = """
 <!-- Curly braces let us inject values into the string -->
 You are in {}. You found a monster!<br>
@@ -48,9 +49,16 @@ def open_door(world: dict, where: str) -> str:
     :param world: The current world
     :param where: The new location to move to
     :return: The HTML to show the player
-    """
+
     world['location'] = where
     return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
+    """
+    if where == "forest":
+        return GAME_HEADER+"""
+        You found Mike Wazowski!<br>
+        <img src = "/static/Mike_Wazowski.jpg"/><br>
+        
+        """
 
 
 @simple_route("/save/name/")
@@ -69,7 +77,4 @@ def save_name(world: dict, monsters_name: str) -> str:
     <a href='/'>Return to the start</a>
     """.format(where=world['location'], monster_name=world['name'])
 
-inventory = []
-def add_item(item: str):
-    #Adds items to the player's inventory
-    inventory.append(item)
+
