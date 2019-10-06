@@ -1,4 +1,5 @@
 from route_helper import simple_route
+import random
 
 GAME_HEADER = """
 <h1>Welcome to Quest of the Gods</h1>
@@ -80,16 +81,42 @@ def open_door(world: dict, where: str) -> str:
     if where == "Vault Gate":
         return GAME_HEADER+"""
         """
-    if where == "Battlefield":
-        return GAME_HEADER+"""
-        """
-    if where == "Pageant":
-        return GAME_HEADER+"""
-        """
-    if where == "Underworld":
-        return GAME_HEADER+"""
-        """
+    if where == "war":
+        x = random.randrange(1, 14)
+        y = random.randrange(1, 14)
+        z = random.randrange(1, 14)
+        play_war(x,y,z)
+        return"""
+        Testing"""
 
+
+@simple_route("/goto/Throne/goto/<where>")
+def new_conflict(world: dict, where: str) -> str:
+    """
+    resolve one of the gods' conflicts from the throne room. Travel to either Ares
+    and Athena, Aprhodite and Hera, or Persephone and Hades
+    :param world: the current world
+    :param where: the new place to travel to
+    :return: the HTML to show the player
+    """
+    if where == "Battlefield":
+        x = random.randrange(1, 14)
+        y = random.randrange(1, 14)
+        z = random.randrange(1, 14)
+        return GAME_HEADER+"""
+           You found the battlefield of Ares and Athena. <br>
+           Now you must beat them at a classic game of war <br>
+           in order to prove who is stronger. <br>
+           <input type ="button" value="Play War" onclick="play_war(x,y,z)"> """
+
+           
+
+    if where == "Pageant":
+        return GAME_HEADER + """
+           """
+    if where == "Underworld":
+        return GAME_HEADER + """
+           """
 
 
 @simple_route("/save/name/")
@@ -107,5 +134,59 @@ def save_name(world: dict, monsters_name: str) -> str:
     <br><br>
     <a href='/'>Return to the start</a>
     """.format(where=world['location'], monster_name=world['name'])
+
+
+def play_war (x: int, y: int, z: int) -> str:
+    a = random.randrange(1, 14)
+    b = random.randrange(1, 14)
+    c = random.randrange(1, 14)
+    if x == y == z:
+        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""WAR!!<br>
+        """
+
+    elif x == y:
+        if z > x and z > y:
+            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+            
+            Ares won and now his ego is too big. <br>
+            <a href='/goto/Battlefield/'> Try again </a>
+            """
+        else:
+            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
+            WAR!!<br>""" + play_war(a,b,0)
+    elif x == z:
+        if y > x and y > z:
+            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+
+            Athena won and now her ego is too big. <br>
+            <a href='/goto/Battlefield/'> Try again </a>
+            """
+        else:
+            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
+            <br>WAR!!<br>""" + play_war(a, 0, c)
+    elif y == z:
+        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
+        You lost.
+        <a href='/goto/Battlefield/'> Try again </a>
+        """
+    elif x > y and x > z:
+        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
+        <br> You won!! Ares and Athena have been defeated by <br>
+        a mere mortal. They don't have the will to keep fighting. <br>
+        Now it's time to stop the other gods.
+        <a href="/goto/Throne/goto/Pageant/"> Stop Aphrodite and Hera second.</a><br>
+        <a href="/goto/Throne/goto/Underworld/"> Stop Persephone and Hades second.</a>"""
+    elif y > z and y > x:
+        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+            
+            Ares won and now his ego is too big. <br>
+            <a href='/goto/Battlefield/'> Try again </a>
+            """
+    elif z > x and z > y:
+        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+
+            Athena won and now her ego is too big. <br>
+            <a href='/goto/Battlefield/'> Try again </a>
+            """
 
 
