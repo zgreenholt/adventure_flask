@@ -103,7 +103,7 @@ def new_conflict(world: dict, where: str) -> str:
         x = random.randrange(1, 14)
         y = random.randrange(1, 14)
         z = random.randrange(1, 14)
-        return GAME_HEADER+"""
+        return GAME_HEADER+ """
            You found the battlefield of Ares and Athena. <br>
            Now you must beat them at a classic game of war <br>
            in order to prove who is stronger. <br>
@@ -113,10 +113,21 @@ def new_conflict(world: dict, where: str) -> str:
 
     if where == "Pageant":
         return GAME_HEADER + """
-           """
+        Hera and Aphrodite each believe they are the most beautiful. <br>
+        Whoever wins their contest receives a golden apple symbolizing <br>
+        their brilliance. <br>
+        Collect all the golden apples so you can prove you are the best looking <br>
+        and end the goddesses' dispute.
+        """
     if where == "Underworld":
         return GAME_HEADER + """
-           """
+        Hades kidnapped Persephone and forces her to stay in the Underworld <br>
+        for four months out of the year, which causes winter. <br>
+        She only has to come back because she eats 4 pomegranate <br>
+        seeds each time, representing the four months she must stay. <br>
+        Find and take Hades' stash of pomegranate seeds so Persephone <br>
+        can return to Earth and has no reason to overthrow Hades. <br>
+        """
 
 
 @simple_route("/save/name/")
