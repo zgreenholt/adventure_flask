@@ -1,9 +1,8 @@
 from route_helper import simple_route
 
 GAME_HEADER = """
-<h1>Welcome to adventure quest!</h1>
+<h1>Welcome to Quest of the Gods</h1>
 <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-<p align = "right">Monsters you have encountered.</p>
 """
 
 
@@ -15,11 +14,14 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    return GAME_HEADER+"""You are in the Lair of the Corgis.<br>
-    
-    <a href="goto/lair">Go further into the lair.</a><br>
-    <a href="goto/entrance">Retreat.</a><br>
-    <a href="goto/forest">Explore.</a>"""
+    return GAME_HEADER+"""You woke up confused on Mount Olympus.<br>
+    You have been notified of a war between the gods that will <br>
+    cause destruction to the human world. If you can solve all the <br>
+    gods' conflicts, you can save humanity. Will you save the humans <br>
+    or find power for yourself on Mount Olympus?<br>
+    <a href="goto/Earth"> Escape back to your home. </a><br>
+    <a href="goto/Throne"> Approach Zeus and ask what's wrong. </a><br>
+    <a href="goto/Vault Gate"> Sneak into the vault of Olympus. </a>"""
 
 
 
@@ -53,12 +55,41 @@ def open_door(world: dict, where: str) -> str:
     world['location'] = where
     return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
     """
-    if where == "forest":
+    if where == "Earth":
         return GAME_HEADER+"""
-        You found Mike Wazowski!<br>
-        <img src = "/static/Mike_Wazowski.jpg"/><br>
+        You returned to your home, but then you remembered <br>
+        that the doom of humanity was imminent, and Earth is destroyed. <br>
+        <h1> GAME OVER <h1>
         
         """
+    if where == "Throne":
+        return GAME_HEADER+"""
+        Zeus tells you about three childish conflicts that the <br>
+        gods and goddesses are going through that each much be <br>
+        stopped because any god's rage could destroy the planet. <br> <br>
+        
+        Athena and Ares are arguing over who would win in a battle. <br>
+        Aphrodite and Hera each believe they are the more beautiful goddess. <br>
+        Persephone is trying to take control of the underworld from Hades. <br>
+        
+        
+        <a href="goto/Battlefield"> Stop Athena and Ares first. </a><br>
+        <a href="goto/Pageant"> Stop Aphrodite and Hera first. </a><br>
+        <a href="goto/Underworld"> Stop Persephone and Hades first. </a>
+        """
+    if where == "Vault Gate":
+        return GAME_HEADER+"""
+        """
+    if where == "Battlefield":
+        return GAME_HEADER+"""
+        """
+    if where == "Pageant":
+        return GAME_HEADER+"""
+        """
+    if where == "Underworld":
+        return GAME_HEADER+"""
+        """
+
 
 
 @simple_route("/save/name/")
