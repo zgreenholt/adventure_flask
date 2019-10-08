@@ -16,7 +16,7 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    return render_template('home.html')
+    return render_template('home.html') +"""<img src="/static/images/1.png">"""
 
 
 
@@ -51,27 +51,9 @@ def open_door(world: dict, where: str) -> str:
     return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
     """
     if where == "Earth":
-        return GAME_HEADER+"""
-        You returned to your home, but then you remembered <br>
-        that the doom of humanity was imminent, and Earth is destroyed. <br>
-        <h1> GAME OVER <h1>
-        
-        """
+        return render_template("Earth.html")
     if where == "Throne":
-        return GAME_HEADER+"""
-        Zeus tells you about three childish conflicts that the <br>
-        gods and goddesses are going through that each much be <br>
-        stopped because any god's rage could destroy the planet. <br> <br>
-        
-        Athena and Ares are arguing over who would win in a battle. <br>
-        Aphrodite and Hera each believe they are the more beautiful goddess. <br>
-        Persephone is trying to take control of the underworld from Hades. <br>
-        
-        
-        <a href="goto/Battlefield"> Stop Athena and Ares first. </a><br>
-        <a href="goto/Pageant"> Stop Aphrodite and Hera first. </a><br>
-        <a href="goto/Underworld"> Stop Persephone and Hades first. </a>
-        """
+        return render_template('Throne.html')
     if where == "Vault Gate":
         return GAME_HEADER+"""
         """
@@ -80,8 +62,7 @@ def open_door(world: dict, where: str) -> str:
         y = random.randrange(1, 14)
         z = random.randrange(1, 14)
         play_war(x,y,z)
-        return"""
-        Testing"""
+        return play_war(x,y,z)
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -94,34 +75,14 @@ def new_conflict(world: dict, where: str) -> str:
     :return: the HTML to show the player
     """
     if where == "Battlefield":
-        x = random.randrange(1, 14)
-        y = random.randrange(1, 14)
-        z = random.randrange(1, 14)
-        return GAME_HEADER+ """
-           You found the battlefield of Ares and Athena. <br>
-           Now you must beat them at a classic game of war <br>
-           in order to prove who is stronger. <br>
-           <input type ="button" value="Play War" onclick="play_war(x,y,z)"> """
+        return render_template("Battlefield.html")
 
            
 
     if where == "Pageant":
-        return GAME_HEADER + """
-        Hera and Aphrodite each believe they are the most beautiful. <br>
-        Whoever wins their contest receives a golden apple symbolizing <br>
-        their brilliance. <br>
-        Collect all the golden apples so you can prove you are the best looking <br>
-        and end the goddesses' dispute.
-        """
+        return render_template("Pageant.html")
     if where == "Underworld":
-        return GAME_HEADER + """
-        Hades kidnapped Persephone and forces her to stay in the Underworld <br>
-        for four months out of the year, which causes winter. <br>
-        She only has to come back because she eats 4 pomegranate <br>
-        seeds each time, representing the four months she must stay. <br>
-        Find and take Hades' stash of pomegranate seeds so Persephone <br>
-        can return to Earth and has no reason to overthrow Hades. <br>
-        """
+        return render_template("Underworld.html")
 
 
 @simple_route("/save/name/")
@@ -146,52 +107,61 @@ def play_war (x: int, y: int, z: int) -> str:
     b = random.randrange(1, 14)
     c = random.randrange(1, 14)
     if x == y == z:
-        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""WAR!!<br>
-        """
+        return display_results(x,y,z)+"""
+        
+        WAR!!<br>
+        """ + play_war(a,b,c)
 
     elif x == y:
-        if z > x and z > y:
-            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+        if z > x:
+            return display_results(x,y,z)+"""
             
             Ares won and now his ego is too big. <br>
-            <a href='/goto/Battlefield/'> Try again </a>
+            <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
-            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
+            return display_results(x,y,z)+"""
             WAR!!<br>""" + play_war(a,b,0)
     elif x == z:
-        if y > x and y > z:
-            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+        if y > x:
+            return display_results(x,y,z)+"""
 
             Athena won and now her ego is too big. <br>
-            <a href='/goto/Battlefield/'> Try again </a>
+            <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
-            return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
-            <br>WAR!!<br>""" + play_war(a, 0, c)
+            return display_results(x,y,z)+"""
+            WAR!!<br>""" + play_war(a, 0, c)
     elif y == z:
-        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
-        You lost.
-        <a href='/goto/Battlefield/'> Try again </a>
+        return display_results(x,y,z)+"""
+        You lost.<br>
+        <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif x > y and x > z:
-        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""
-        <br> You won!! Ares and Athena have been defeated by <br>
+        return display_results(x,y,z)+"""
+        
+        You won!! Ares and Athena have been defeated by <br>
         a mere mortal. They don't have the will to keep fighting. <br>
         Now it's time to stop the other gods.
-        <a href="/goto/Throne/goto/Pageant/"> Stop Aphrodite and Hera second.</a><br>
-        <a href="/goto/Throne/goto/Underworld/"> Stop Persephone and Hades second.</a>"""
+        <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
+        <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>"""
     elif y > z and y > x:
-        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+        return display_results(x,y,z)+"""
             
-            Ares won and now his ego is too big. <br>
-            <a href='/goto/Battlefield/'> Try again </a>
-            """
+        Athena won and now her ego is too big. <br>
+        <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
+        """
     elif z > x and z > y:
-        return"""You: """ + str(x) + """<br>Athena: """ + str(y) + """<br>Ares: """ + str(z) +"""<br>
+        return display_results(x,y,z)+"""
 
-            Athena won and now her ego is too big. <br>
-            <a href='/goto/Battlefield/'> Try again </a>
+        Ares won and now his ego is too big. <br>
+        <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
+        """
+
+def display_results(x: int,y: int,z: int) -> str:
+    return """You:  <img src="/static/images/""" + str(x) + """.png" height="200" width="150"><br>
+            Athena: <img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br>
+            Ares: <img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br>
             """
 
 
