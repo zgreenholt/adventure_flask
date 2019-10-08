@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Welcome to Quest of the Gods!</title>
+    {% endif %}
+</head>
+<body>
+    <div><a href ="/reset/">Restart</a></div>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>

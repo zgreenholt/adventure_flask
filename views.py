@@ -1,4 +1,5 @@
 from route_helper import simple_route
+from flask import render_template
 import random
 
 GAME_HEADER = """
@@ -15,14 +16,7 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    return GAME_HEADER+"""You woke up confused on Mount Olympus.<br>
-    You have been notified of a war between the gods that will <br>
-    cause destruction to the human world. If you can solve all the <br>
-    gods' conflicts, you can save humanity. Will you save the humans <br>
-    or find power for yourself on Mount Olympus?<br>
-    <a href="goto/Earth"> Escape back to your home. </a><br>
-    <a href="goto/Throne"> Approach Zeus and ask what's wrong. </a><br>
-    <a href="goto/Vault Gate"> Sneak into the vault of Olympus. </a>"""
+    return render_template('home.html')
 
 
 
