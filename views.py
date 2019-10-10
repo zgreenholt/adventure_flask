@@ -2,7 +2,7 @@ from route_helper import simple_route
 from flask import render_template
 import random
 
-apples = 0
+
 
 GAME_HEADER = """
 <h1>Welcome to Quest of the Gods</h1>
@@ -52,6 +52,8 @@ def open_door(world: dict, where: str) -> str:
     world['location'] = where
     return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
     """
+    apples = -1
+    apples += 1
     if where == "Earth":
         return render_template("Earth.html",)
     if where == "Throne":

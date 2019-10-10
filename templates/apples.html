@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>Collect the golden Apples</h1>
-    <a href=window.location.href><img src="/static/images/golden_apple.png" onclick = style="visibility:hidden" height = 150 width = 150></a>
+    <img src="/static/images/golden_apple.png" onclick= style="visibility:hidden" onclick=window.location.href=reload height = 150 width = 150>
 
     {% if num_of_apples == 0 %}
         {{ num_of_apples }}
