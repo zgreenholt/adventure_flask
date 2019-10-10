@@ -7,9 +7,15 @@
     {% else %}
     <title>Welcome to Quest of the Gods!</title>
     {% endif %}
+
 </head>
 <body>
     <div><a href ="/reset/">Restart</a></div>
+    {% if header %}
+    <h1>{{ header }}</h1>
+    {% else %}
+    <h1>Welcome to Quest of the Gods!</h1>
+    {% endif %}
     <hr>
     {% block content %}{% endblock %}
 </body>

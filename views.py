@@ -2,6 +2,8 @@ from route_helper import simple_route
 from flask import render_template
 import random
 
+apples = 0
+
 GAME_HEADER = """
 <h1>Welcome to Quest of the Gods</h1>
 <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
@@ -51,7 +53,7 @@ def open_door(world: dict, where: str) -> str:
     return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
     """
     if where == "Earth":
-        return render_template("Earth.html")
+        return render_template("Earth.html",)
     if where == "Throne":
         return render_template('Throne.html')
     if where == "Vault Gate":
@@ -62,7 +64,11 @@ def open_door(world: dict, where: str) -> str:
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
         play_war(x,y,z)
-        return play_war(x,y,z)
+        return render_template("war.html")+play_war(x,y,z)
+
+    if where == "apples":
+        apples += 1
+        return render_template("apples.html", num_of_apples=apples)
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -163,5 +169,13 @@ def display_results(x: int,y: int,z: int) -> str:
             Athena: <img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br>
             Ares: <img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br>
             """
+
+def increment_apples(num: int) -> int:
+    num += 1
+    return num
+
+def all_apples(num: int) -> str:
+    pass
+
 
 

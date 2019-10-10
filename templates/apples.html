@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Collect the golden Apples</h1>
+    <a href=window.location.href><img src="/static/images/golden_apple.png" onclick = style="visibility:hidden" height = 150 width = 150></a>
+
+    {% if num_of_apples == 0 %}
+        {{ num_of_apples }}
+    {% elif num_of_apples == 1 %}
+        {{ num_of_apples }}
+    {% elif num_of_apples == 2 %}
+        {{ num_of_apples }}
+    {% elif num_of_apples == 3 %}
+        {{ num_of_apples }}
+    {% elif num_of_apples == 4 %}
+        {{ num_of_apples }}
+    {% endif %}
+{% endblock %}
