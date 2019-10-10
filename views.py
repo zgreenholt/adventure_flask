@@ -52,8 +52,7 @@ def open_door(world: dict, where: str) -> str:
     world['location'] = where
     return GAME_HEADER+ENCOUNTER_MONSTER.format(where)
     """
-    apples = -1
-    apples += 1
+
     if where == "Earth":
         return render_template("Earth.html",)
     if where == "Throne":
@@ -69,8 +68,8 @@ def open_door(world: dict, where: str) -> str:
         return render_template("war.html")+play_war(x,y,z)
 
     if where == "apples":
-        apples += 1
-        return render_template("apples.html", num_of_apples=apples)
+        increment_apples(apples)
+        return render_template("apples.html", num_of_apples=apples[0])
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -171,13 +170,10 @@ def display_results(x: int,y: int,z: int) -> str:
             Athena: <img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br>
             Ares: <img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br>
             """
+apples = [0]
+def increment_apples(num: [int]) -> None:
+    num[0] += 1
 
-def increment_apples(num: int) -> int:
-    num += 1
-    return num
-
-def all_apples(num: int) -> str:
-    pass
 
 
 
