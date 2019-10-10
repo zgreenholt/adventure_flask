@@ -16,7 +16,7 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    return render_template('home.html') +"""<img src="/static/images/1.png">"""
+    return render_template('home.html')
 
 
 
@@ -58,9 +58,9 @@ def open_door(world: dict, where: str) -> str:
         return GAME_HEADER+"""
         """
     if where == "war":
-        x = random.randrange(1, 14)
-        y = random.randrange(1, 14)
-        z = random.randrange(1, 14)
+        x = random.randrange(2, 15)
+        y = random.randrange(2, 15)
+        z = random.randrange(2, 15)
         play_war(x,y,z)
         return play_war(x,y,z)
 
@@ -103,9 +103,9 @@ def save_name(world: dict, monsters_name: str) -> str:
 
 
 def play_war (x: int, y: int, z: int) -> str:
-    a = random.randrange(1, 14)
-    b = random.randrange(1, 14)
-    c = random.randrange(1, 14)
+    a = random.randrange(2, 15)
+    b = random.randrange(2, 15)
+    c = random.randrange(2, 15)
     if x == y == z:
         return display_results(x,y,z)+"""
         
