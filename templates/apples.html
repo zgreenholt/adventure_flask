@@ -2,17 +2,20 @@
 
 {% block content %}
 <h1>Collect the golden Apples</h1>
-    <img src="/static/images/golden_apple.png" onclick= style="visibility:hidden" onclick=window.location.href=reload height = 150 width = 150>
+    <img src="/static/images/golden_apple.png" onclick= style="visibility:hidden" onclick=window.location.href=window.location.href height = 150 width = 150>
 
     {% if num_of_apples == 0 %}
-        {{ num_of_apples }}
+        Collect each apple by clicking on it (although you may need some items to get to some of them).
     {% elif num_of_apples == 1 %}
-        {{ num_of_apples }}
+        You have collected 1 apple so far, only three more to go!
     {% elif num_of_apples == 2 %}
-        {{ num_of_apples }}
+        Halfway there! Keep going!
     {% elif num_of_apples == 3 %}
-        {{ num_of_apples }}
+        You only need one more!
     {% elif num_of_apples == 4 %}
-        {{ num_of_apples }}
+        After collecting all 4 golden apples you have utterly defeated Hera and Aphrodite.<br>
+        <a href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a><br>
+        <a href="/goto/Throne/goto/Underworld">Stop Persephone and Hades second.</a>
+
     {% endif %}
 {% endblock %}

@@ -68,7 +68,8 @@ def open_door(world: dict, where: str) -> str:
         return render_template("war.html")+play_war(x,y,z)
 
     if where == "apples":
-        increment_apples(apples)
+        if apples[0]<4:
+            increment_apples(apples)
         return render_template("apples.html", num_of_apples=apples[0])
 
 
@@ -170,7 +171,8 @@ def display_results(x: int,y: int,z: int) -> str:
             Athena: <img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br>
             Ares: <img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br>
             """
-apples = [0]
+apples = [-1]
+
 def increment_apples(num: [int]) -> None:
     num[0] += 1
 
