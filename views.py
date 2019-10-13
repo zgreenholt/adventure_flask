@@ -2,8 +2,6 @@ from route_helper import simple_route
 from flask import render_template
 import random
 
-
-
 GAME_HEADER = """
 <h1>Welcome to Quest of the Gods</h1>
 <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
@@ -19,7 +17,6 @@ def hello(world: dict) -> str:
     :return: The HTML to show the player
     """
     return render_template('home.html')
-
 
 
 ENCOUNTER_MONSTER = """
@@ -54,21 +51,21 @@ def open_door(world: dict, where: str) -> str:
     """
 
     if where == "Earth":
-        return render_template("Earth.html",)
+        return render_template("Earth.html", )
     if where == "Throne":
         return render_template('Throne.html')
     if where == "Vault Gate":
-        return GAME_HEADER+"""
+        return GAME_HEADER + """
         """
     if where == "war":
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
-        play_war(x,y,z)
-        return render_template("war.html")+play_war(x,y,z)
+        play_war(x, y, z)
+        return render_template("war.html") + play_war(x, y, z)
 
     if where == "apples":
-        if apples[0]<4:
+        if apples[0] < 4:
             increment_apples(apples)
         return render_template("apples.html", num_of_apples=apples[0])
 
@@ -77,15 +74,13 @@ def open_door(world: dict, where: str) -> str:
 def new_conflict(world: dict, where: str) -> str:
     """
     resolve one of the gods' conflicts from the throne room. Travel to either Ares
-    and Athena, Aprhodite and Hera, or Persephone and Hades
+    and Athena, Aphrodite and Hera, or Persephone and Hades
     :param world: the current world
     :param where: the new place to travel to
     :return: the HTML to show the player
     """
     if where == "Battlefield":
         return render_template("Battlefield.html")
-
-           
 
     if where == "Pageant":
         return render_template("Pageant.html")
@@ -104,49 +99,49 @@ def save_name(world: dict, monsters_name: str) -> str:
     """
     world['name'] = monsters_name
 
-    return GAME_HEADER+"""You are in {where}, and you are nearby {monster_name}
+    return GAME_HEADER + """You are in {where}, and you are nearby {monster_name}
     <br><br>
     <a href='/'>Return to the start</a>
     """.format(where=world['location'], monster_name=world['name'])
 
 
-def play_war (x: int, y: int, z: int) -> str:
+def play_war(x: int, y: int, z: int) -> str:
     a = random.randrange(2, 15)
     b = random.randrange(2, 15)
     c = random.randrange(2, 15)
     if x == y == z:
-        return display_results(x,y,z)+"""
+        return display_results(x, y, z) + """
         
         WAR!!<br>
-        """ + play_war(a,b,c)
+        """ + play_war(a, b, c)
 
     elif x == y:
         if z > x:
-            return display_results(x,y,z)+"""
+            return display_results(x, y, z) + """
             
             Ares won and now his ego is too big. <br>
             <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
-            return display_results(x,y,z)+"""
-            WAR!!<br>""" + play_war(a,b,0)
+            return display_results(x, y, z) + """
+            WAR!!<br>""" + play_war(a, b, 0)
     elif x == z:
         if y > x:
-            return display_results(x,y,z)+"""
+            return display_results(x, y, z) + """
 
             Athena won and now her ego is too big. <br>
             <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
-            return display_results(x,y,z)+"""
+            return display_results(x, y, z) + """
             WAR!!<br>""" + play_war(a, 0, c)
     elif y == z:
-        return display_results(x,y,z)+"""
+        return display_results(x, y, z) + """
         You lost.<br>
         <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif x > y and x > z:
-        return display_results(x,y,z)+"""
+        return display_results(x, y, z) + """
         
         You won!! Ares and Athena have been defeated by <br>
         a mere mortal. They don't have the will to keep fighting. <br>
@@ -154,28 +149,28 @@ def play_war (x: int, y: int, z: int) -> str:
         <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
         <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>"""
     elif y > z and y > x:
-        return display_results(x,y,z)+"""
+        return display_results(x, y, z) + """
             
         Athena won and now her ego is too big. <br>
         <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif z > x and z > y:
-        return display_results(x,y,z)+"""
+        return display_results(x, y, z) + """
 
         Ares won and now his ego is too big. <br>
         <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
         """
 
-def display_results(x: int,y: int,z: int) -> str:
+
+def display_results(x: int, y: int, z: int) -> str:
     return """You:  <img src="/static/images/""" + str(x) + """.png" height="200" width="150"><br>
             Athena: <img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br>
             Ares: <img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br>
             """
+
+
 apples = [-1]
+
 
 def increment_apples(num: [int]) -> None:
     num[0] += 1
-
-
-
-
