@@ -58,6 +58,7 @@ def open_door(world: dict, where: str) -> str:
         return GAME_HEADER + """
         """
     if where == "war":
+        tasks[0] = True
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
@@ -65,9 +66,10 @@ def open_door(world: dict, where: str) -> str:
         return render_template("war.html") + play_war(x, y, z)
 
     if where == "apples":
+        tasks[1] = True
         if apples[0] < 4:
             increment_apples(apples)
-        return render_template("apples.html", num_of_apples=apples[0])
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks)
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -170,7 +172,11 @@ def display_results(x: int, y: int, z: int) -> str:
 
 
 apples = [-1]
+tasks = [False, False, False]
 
 
 def increment_apples(num: [int]) -> None:
     num[0] += 1
+
+
+

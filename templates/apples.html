@@ -19,8 +19,16 @@
         <img src="/static/images/golden_apple.png" onclick= window.location.href=window.location.href; height = 150 width = 150>
     {% elif num_of_apples == 4 %}
         After collecting all 4 golden apples you have utterly defeated Hera and Aphrodite.<br>
-        <a href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a><br>
-        <a href="/goto/Throne/goto/Underworld">Stop Persephone and Hades second.</a>
+        {% if tasks[0] == False and tasks[2] == False %}
+            <a href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a>
+            <a href="/goto/Throne/goto/Underworld">Stop Persephone and Hades second.</a>
+        {% elif tasks[0] == False and tasks[2] == True %}
+            <a href="/goto/Throne/goto/Battlefield">Stop Athena and Ares third.</a>
+        {% elif tasks[2] == False and tasks[0] == True %}
+            <a href="/goto/Throne/goto/Underworld">Stop Persephone and Hades third.</a>
+        {% elif tasks[0] == True and tasks[1] == True and tasks[2] == True %}
+            You have solved all the conflicts. Return to Zeus to report your successes.
+        {% endif %}
 
     {% endif %}
 {% endblock %}
