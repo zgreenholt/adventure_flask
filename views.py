@@ -16,6 +16,9 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
+    for task in tasks:
+        tasks[task] = False
+    apples[0] = -1
     return render_template('home.html')
 
 
@@ -143,13 +146,34 @@ def play_war(x: int, y: int, z: int) -> str:
         <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif x > y and x > z:
-        return display_results(x, y, z) + """
+        if tasks[1] == False and tasks[2] == False:
+            return display_results(x, y, z) + """
         
-        You won!! Ares and Athena have been defeated by <br>
-        a mere mortal. They don't have the will to keep fighting. <br>
-        Now it's time to stop the other gods.
-        <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
-        <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>"""
+            You won!! Ares and Athena have been defeated by <br>
+            a mere mortal. They don't have the will to keep fighting. <br>
+            Now it's time to stop the other gods.
+            <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
+            <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>"""
+        if tasks[1] == True and tasks[2] == False:
+            return display_results(x, y, z) + """
+
+            You won!! Ares and Athena have been defeated by <br>
+            a mere mortal. They don't have the will to keep fighting. <br>
+            Now it's time to stop the other gods.
+            <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades third.</a>"""
+        if tasks[1] == False and tasks[2] == True:
+            return display_results(x, y, z) + """
+
+            You won!! Ares and Athena have been defeated by <br>
+            a mere mortal. They don't have the will to keep fighting. <br>
+            Now it's time to stop the other gods.
+            <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera third.</a>"""
+        if tasks[1] == True and tasks[2] == True:
+            return display_results(x, y, z) + """
+
+            You won!! Ares and Athena have been defeated by <br>
+            a mere mortal. They don't have the will to keep fighting. <br><br>
+            You have resolved all conflicts. Report to Zeus."""
     elif y > z and y > x:
         return display_results(x, y, z) + """
             
