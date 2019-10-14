@@ -19,6 +19,7 @@ def hello(world: dict) -> str:
     for task in tasks:
         tasks[task] = False
     apples[0] = -1
+    ladder[0] = False
     return render_template('home.html')
 
 
@@ -73,6 +74,10 @@ def open_door(world: dict, where: str) -> str:
         if apples[0] < 4:
             increment_apples(apples)
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks)
+    if where == "ladder":
+        ladder[0] = True
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks)
+
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -197,6 +202,7 @@ def display_results(x: int, y: int, z: int) -> str:
 
 apples = [-1]
 tasks = [False, False, False]
+ladder = [False]
 
 
 def increment_apples(num: [int]) -> None:

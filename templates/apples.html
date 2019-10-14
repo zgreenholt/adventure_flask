@@ -7,10 +7,15 @@
 
     {% if num_of_apples == 0 %}
         Collect each apple by clicking on it (although you may need some items to get to some of them).<br><br><br><br><br><br><br>
-        <img src="/static/images/golden_apple.png" onclick= window.location.href=window.location.href; height = 150 width = 150>
+        <img src="/static/images/golden_apple.png" onclick= window.location.href=window.location.href height = 150 width = 150>
     {% elif num_of_apples == 1 %}
-        <img src="/static/images/golden_apple.png" onclick= window.location.href=window.location.href; align = right height = 150 width = 150><br>
         You have collected 1 apple so far, only three more to go!
+        {% if ladder == True %}
+            <img src="/static/images/golden_apple.png" onclick= window.location.href=window.location.href align = right height = 150 width = 150><br>
+        {% else %}
+            <img src="/static/images/golden_apple.png" onclick= The apple is too high align = right height = 150 width = 150><br>
+        {% endif %}
+        <img src="/static/images/ladder.png" onclick= window.location.href="/goto/ladder" height = 300 width = 100><br>
     {% elif num_of_apples == 2 %}
         Halfway there! Keep going!
         <img src="/static/images/golden_apple.png" onclick= window.location.href=window.location.href; height = 150 width = 150>
