@@ -73,10 +73,10 @@ def open_door(world: dict, where: str) -> str:
         tasks[1] = True
         if apples[0] < 4:
             increment_apples(apples)
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks)
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0])
     if where == "ladder":
         ladder[0] = True
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks)
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0])
 
 
 
