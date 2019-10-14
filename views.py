@@ -20,6 +20,7 @@ def hello(world: dict) -> str:
         tasks[task] = False
     apples[0] = -1
     ladder[0] = False
+    hammer[0] = False
     return render_template('home.html')
 
 
@@ -73,10 +74,13 @@ def open_door(world: dict, where: str) -> str:
         tasks[1] = True
         if apples[0] < 4:
             increment_apples(apples)
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0])
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0],hammer=hammer[0])
     if where == "ladder":
         ladder[0] = True
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0])
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0],hammer=hammer[0])
+    if where == "hammer":
+        hammer[0] = True
+        return render_template("apples.html", num_of_apples=apples[0],tasks=tasks,ladder=ladder[0],hammer=hammer[0])
 
 
 
@@ -203,6 +207,7 @@ def display_results(x: int, y: int, z: int) -> str:
 apples = [-1]
 tasks = [False, False, False]
 ladder = [False]
+hammer = [False]
 
 
 def increment_apples(num: [int]) -> None:
