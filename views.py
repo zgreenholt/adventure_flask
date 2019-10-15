@@ -18,9 +18,8 @@ def hello(world: dict) -> str:
     """
     for task in tasks:
         tasks[task] = False
-    apples[0] = -1
-    ladder[0] = False
-    hammer[0] = False
+    for item in inventory:
+        inventory.remove(item)
     return render_template('home.html')
 
 
@@ -74,13 +73,20 @@ def open_door(world: dict, where: str) -> str:
         tasks[1] = True
         if apples[0] < 4:
             increment_apples(apples)
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0],hammer=hammer[0])
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
     if where == "ladder":
-        ladder[0] = True
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, ladder=ladder[0],hammer=hammer[0])
+        inventory.append("ladder")
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
     if where == "hammer":
-        hammer[0] = True
-        return render_template("apples.html", num_of_apples=apples[0],tasks=tasks,ladder=ladder[0],hammer=hammer[0])
+        inventory.append("hammer")
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
+    if where == "magnifier":
+        inventory.append("magnifier")
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
+    if where == "enlarge":
+        enlarge[0] = True
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
+
 
 
 
@@ -208,6 +214,9 @@ apples = [-1]
 tasks = [False, False, False]
 ladder = [False]
 hammer = [False]
+magnifier = [False]
+enlarge = [False]
+inventory = []
 
 
 def increment_apples(num: [int]) -> None:
