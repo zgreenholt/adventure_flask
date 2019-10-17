@@ -13,16 +13,16 @@
         {% if "ladder" in inventory %}
             <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples" align = right height = 150 width = 150><br>
         {% else %}
-            <img src="/static/images/golden_apple.png" onclick= The apple is too high align = right height = 150 width = 150><br>
+            <img src="/static/images/golden_apple.png" align = right height = 150 width = 150><br>
             <img src="/static/images/ladder.png" onclick= window.location.href="/goto/ladder" height = 300 width = 100><br>
         {% endif %}
     {% elif num_of_apples == 2 %}
         Halfway there! Keep going!
-        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples" style="position: relative; left:30px; top:0" height = 150 width = 150>
+        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples" style="position: relative; left:30px; top:25px" height = 150 width = 150>
         {% if "hammer" in inventory %}
-            <img src="/static/images/glass.jpg" onclick=style="visibility:hidden" style="position:absolute; left:205px;top:185px" height = 175 width = 175><br>
+            <img src="/static/images/glass.jpg" onclick=style="visibility:hidden" style="position:absolute; left:205px;top:170px" height = 175 width = 175><br>
         {% else %}
-            <img src="/static/images/glass.jpg" style="position:absolute; left:205px;top:185px" height = 175 width = 175><br>
+            <img src="/static/images/glass.jpg" style="position:absolute; left:205px;top:170px" height = 175 width = 175><br>
             <img src="/static/images/hammer.png" onclick= window.location.href="/goto/hammer/" height = 200 width = 150>
         {% endif %}
 
@@ -40,12 +40,14 @@
     {% elif num_of_apples == 4 %}
         After collecting all 4 golden apples you have utterly defeated Hera and Aphrodite.<br>
         {% if not tasks[0] and not tasks[2] %}
-            <a href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a>
-            <a href="/goto/Throne/goto/Underworld">Stop Persephone and Hades second.</a>
+            <div class="btn-group-vertical">
+                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a>
+                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld">Stop Persephone and Hades second.</a>
+            </div>
         {% elif not tasks[0] and tasks[2] %}
-            <a href="/goto/Throne/goto/Battlefield">Stop Athena and Ares third.</a>
+            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Battlefield">Stop Athena and Ares third.</a>
         {% elif not tasks[2] and tasks[0] %}
-            <a href="/goto/Throne/goto/Underworld">Stop Persephone and Hades third.</a>
+            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld">Stop Persephone and Hades third.</a>
         {% elif tasks[0] and tasks[1] and tasks[2] %}
             You have solved all the conflicts. Return to Zeus to report your successes.
         {% endif %}

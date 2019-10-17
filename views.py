@@ -142,7 +142,7 @@ def play_war(x: int, y: int, z: int) -> str:
             return display_results(x, y, z) + """
             
             Ares won and now his ego is too big. <br>
-            <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
+            <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
             return display_results(x, y, z) + """
@@ -152,7 +152,7 @@ def play_war(x: int, y: int, z: int) -> str:
             return display_results(x, y, z) + """
 
             Athena won and now her ego is too big. <br>
-            <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
+            <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
             return display_results(x, y, z) + """
@@ -160,7 +160,7 @@ def play_war(x: int, y: int, z: int) -> str:
     elif y == z:
         return display_results(x, y, z) + """
         You lost.<br>
-        <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
+        <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif x > y and x > z:
         if not tasks[1] and not tasks[2]:
@@ -169,22 +169,24 @@ def play_war(x: int, y: int, z: int) -> str:
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.
-            <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
-            <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>"""
+            <div class = "btn-group-vertical">
+                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
+                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>
+            </div>"""
         if tasks[1] and not tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.
-            <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades third.</a>"""
+            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades third.</a>"""
         if not tasks[1] and tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.
-            <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera third.</a>"""
+            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera third.</a>"""
         if tasks[1] and not tasks[2]:
             return display_results(x, y, z) + """
 
@@ -195,13 +197,13 @@ def play_war(x: int, y: int, z: int) -> str:
         return display_results(x, y, z) + """
             
         Athena won and now her ego is too big. <br>
-        <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
+        <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif z > x and z > y:
         return display_results(x, y, z) + """
 
         Ares won and now his ego is too big. <br>
-        <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
+        <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
         """
 
 
