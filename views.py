@@ -20,6 +20,7 @@ def hello(world: dict) -> str:
         tasks[task] = False
     for item in inventory:
         inventory.remove(item)
+    apples[0] = -1
     return render_template('home.html')
 
 
