@@ -90,6 +90,9 @@ def open_door(world: dict, where: str) -> str:
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
                                enlarge=enlarge[0])
 
+    if where == "seeds":
+        return render_template("seeds.html")
+
 
 @simple_route("/goto/Throne/goto/<where>")
 def new_conflict(world: dict, where: str) -> str:
