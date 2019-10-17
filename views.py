@@ -66,28 +66,30 @@ def open_door(world: dict, where: str) -> str:
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
-        play_war(x, y, z)
         return render_template("war.html") + play_war(x, y, z)
 
     if where == "apples":
         tasks[1] = True
         if apples[0] < 4:
-            increment_apples(apples)
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
+            apples[0] += 1
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
+                               enlarge=enlarge[0])
     if where == "ladder":
         inventory.append("ladder")
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
+                               enlarge=enlarge[0])
     if where == "hammer":
         inventory.append("hammer")
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
+                               enlarge=enlarge[0])
     if where == "magnifier":
         inventory.append("magnifier")
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
+                               enlarge=enlarge[0])
     if where == "enlarge":
         enlarge[0] = True
-        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory, enlarge=enlarge[0])
-
-
+        return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
+                               enlarge=enlarge[0])
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -161,7 +163,7 @@ def play_war(x: int, y: int, z: int) -> str:
         <input type ="button" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif x > y and x > z:
-        if tasks[1] == False and tasks[2] == False:
+        if not tasks[1] and not tasks[2]:
             return display_results(x, y, z) + """
         
             You won!! Ares and Athena have been defeated by <br>
@@ -169,21 +171,21 @@ def play_war(x: int, y: int, z: int) -> str:
             Now it's time to stop the other gods.
             <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
             <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>"""
-        if tasks[1] == True and tasks[2] == False:
+        if tasks[1] and not tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.
             <a href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades third.</a>"""
-        if tasks[1] == False and tasks[2] == True:
+        if not tasks[1] and tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.
             <a href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera third.</a>"""
-        if tasks[1] == True and tasks[2] == True:
+        if tasks[1] and not tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
@@ -204,23 +206,20 @@ def play_war(x: int, y: int, z: int) -> str:
 
 
 def display_results(x: int, y: int, z: int) -> str:
-    return """You:  <img src="/static/images/""" + str(x) + """.png" height="200" width="150"><br>
-            Athena: <img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br>
-            Ares: <img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br>
+    return """
+            <table class="table table-dark">
+                <tbody>
+                    <tr> 
+                        <td><img src="/static/images/""" + str(x) + """.png" height="200" width="150"><br></td>
+                        <td><img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br></td>
+                        <td><img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br></td>
+                    </tr>    
+                </tbody>    
+            </table>        
             """
 
 
 apples = [-1]
 tasks = [False, False, False]
-ladder = [False]
-hammer = [False]
-magnifier = [False]
 enlarge = [False]
 inventory = []
-
-
-def increment_apples(num: [int]) -> None:
-    num[0] += 1
-
-
-
