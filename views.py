@@ -20,7 +20,7 @@ def hello(world: dict) -> str:
         tasks[task] = False
     for item in inventory:
         inventory.remove(item)
-    apples[0] = -1
+    apples[0] = 0
     return render_template('home.html')
 
 
@@ -71,8 +71,6 @@ def open_door(world: dict, where: str) -> str:
 
     if where == "apples":
         tasks[1] = True
-        if apples[0] < 4:
-            apples[0] += 1
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
                                enlarge=enlarge[0])
     if where == "ladder":
@@ -109,6 +107,14 @@ def new_conflict(world: dict, where: str) -> str:
         return render_template("Pageant.html")
     if where == "Underworld":
         return render_template("Underworld.html")
+
+@simple_route("/goto/apples/<where>")
+def increment(world: dict, where: str) -> str:
+    apples[0] = int(where)
+    return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
+                               enlarge=enlarge[0])
+
+
 
 
 @simple_route("/save/name/")
@@ -222,7 +228,7 @@ def display_results(x: int, y: int, z: int) -> str:
             """
 
 
-apples = [-1]
+apples = [0]
 tasks = [False, False, False]
 enlarge = [False]
 inventory = []

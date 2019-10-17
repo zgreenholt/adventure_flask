@@ -7,18 +7,18 @@
 
     {% if num_of_apples == 0 %}
         Collect each apple by clicking on it (although you may need some items to get to some of them).<br><br><br><br><br><br><br>
-        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples" height = 150 width = 150>
+        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples/1" height = 150 width = 150>
     {% elif num_of_apples == 1 %}
         You have collected 1 apple so far, only three more to go!
         {% if "ladder" in inventory %}
-            <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples" align = right height = 150 width = 150><br>
+            <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples/2" align = right height = 150 width = 150><br>
         {% else %}
             <img src="/static/images/golden_apple.png" align = right height = 150 width = 150><br>
             <img src="/static/images/ladder.png" onclick= window.location.href="/goto/ladder" height = 300 width = 100><br>
         {% endif %}
     {% elif num_of_apples == 2 %}
         Halfway there! Keep going!
-        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples" style="position: relative; left:30px; top:25px" height = 150 width = 150>
+        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples/3" style="position: relative; left:30px; top:25px" height = 150 width = 150>
         {% if "hammer" in inventory %}
             <img src="/static/images/glass.jpg" onclick=style="visibility:hidden" style="position:absolute; left:205px;top:170px" height = 175 width = 175><br>
         {% else %}
@@ -34,7 +34,7 @@
            <img src="/static/images/magnifier.jpg" onclick=window.location.href="/goto/magnifier/" height = 200 width = 150>
            <img src="/static/images/golden_apple.png" height = 15 width = 15>
         {% elif "magnifier" in inventory and enlarge == True %}
-            <img src="/static/images/golden_apple.png" onclick=window.location.href="/goto/apples/" height = 150 width = 150>
+            <img src="/static/images/golden_apple.png" onclick=window.location.href="/goto/apples/4" height = 150 width = 150>
         {% endif %}
 
     {% elif num_of_apples == 4 %}
