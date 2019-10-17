@@ -21,6 +21,7 @@ def hello(world: dict) -> str:
     for item in inventory:
         inventory.remove(item)
     apples[0] = 0
+    seeds[0] = 0
     return render_template('home.html')
 
 
@@ -91,7 +92,8 @@ def open_door(world: dict, where: str) -> str:
                                enlarge=enlarge[0])
 
     if where == "seeds":
-        return render_template("seeds.html")
+        tasks[2] = True
+        return render_template("seeds.html",num_of_seeds=seeds[0],tasks=tasks)
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -111,11 +113,20 @@ def new_conflict(world: dict, where: str) -> str:
     if where == "Underworld":
         return render_template("Underworld.html")
 
-@simple_route("/goto/apples/<where>")
-def increment(world: dict, where: str) -> str:
-    apples[0] = int(where)
+@simple_route("/goto/apples/<num>")
+def increment_apples(world: dict, num: str) -> str:
+    apples[0] = int(num)
     return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
                                enlarge=enlarge[0])
+
+@simple_route("/goto/seeds/goto/<num>")
+def increment_seeds(world: dict, num: str) -> str:
+    if int(num) == 3:
+        return render_template("seeds_3.html")
+    else:
+        seeds[0] = int(num)
+        return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks)
+
 
 
 
@@ -180,7 +191,7 @@ def play_war(x: int, y: int, z: int) -> str:
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.
             <div class = "btn-group-vertical">
-                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a><br>
+                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a>
                 <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>
             </div>"""
         if tasks[1] and not tasks[2]:
@@ -230,7 +241,7 @@ def display_results(x: int, y: int, z: int) -> str:
             </table>        
             """
 
-
+seeds = [0]
 apples = [0]
 tasks = [False, False, False]
 enlarge = [False]

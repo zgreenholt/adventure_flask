@@ -1,7 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+    {% if num_of_seeds == 0 %}
+        <h1>Try to find the hidden <span style = "color:gray" onclick=window.location.href="goto/1">seed</span>s.</h1>
+    {% elif num_of_seeds == 1 %}
+        <img src="/static/images/white.png" class = "img-thumbnail" onclick=window.location.href="/goto/seeds/goto/2" height = 10 width = 10>
+    {% elif num_of_seeds == 2 %}
+        Which god or goddess doesn't fit?
+        <table class = "table table-dark">
+            <tbody>
+                <td>Artemis</td>
+                <td>Apollo</td>
+                <td>Heracles</td>
+                <td>Hermes</td>
+                <td>Zeus</td>
+                <td>Poseidon</td>
+                <td>Hades</td>
+                <td><span onclick=window.location.href="/goto/seeds/goto/3">Cupid</span></td>
+                <td>Medusa</td>
+                <td>Arachne</td>
+            </tbody>
+        </table>
+    {% elif num_of_seeds == 4 %}
+        You found all the seeds!<br>
+        {% if not tasks[0] and not tasks[1] %}
+            <div class="btn-group-vertical">
+                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a>
+                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant">Stop Aphrodite and Hera second.</a>
+            </div>
+        {% elif not tasks[0] and tasks[1] %}
+            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Battlefield">Stop Athena and Ares third.</a>
+        {% elif not tasks[1] and tasks[0] %}
+            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld">Stop Aphrodite and Hera third</a>
+        {% elif tasks[0] and tasks[1] and tasks[2] %}
+            You have solved all the conflicts. Return to Zeus to report your successes.
+        {% endif %}
+    {% endif %}
 {% endblock %}
 
 

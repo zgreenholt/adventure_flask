@@ -13,7 +13,9 @@ from flask import request, session, redirect
 
 from app import app
 
-INITIAL_WORLD = {}
+INITIAL_WORLD = {
+    "seeds": 0
+}
 
 
 def simple_route(path: str, **options):
