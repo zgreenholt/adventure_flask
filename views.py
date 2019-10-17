@@ -208,7 +208,7 @@ def play_war(x: int, y: int, z: int) -> str:
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.
             <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera third.</a>"""
-        if tasks[1] and not tasks[2]:
+        if tasks[1] and tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
