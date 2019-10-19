@@ -22,6 +22,7 @@ def hello(world: dict) -> str:
         inventory.remove(item)
     apples[0] = 0
     seeds[0] = 0
+    quiz[0] = 0
     return render_template('home.html')
 
 
@@ -125,7 +126,13 @@ def increment_seeds(world: dict, num: str) -> str:
         return render_template("seeds_3.html")
     else:
         seeds[0] = int(num)
-        return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks)
+        return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks, quiz=quiz[0])
+
+@simple_route("/goto/seeds/goto/2/<num>")
+def new_quiz(world: dict, num: str) -> str:
+    quiz[0] = int(num)
+    return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks, quiz=quiz[0])
+
 
 
 
@@ -243,6 +250,7 @@ def display_results(x: int, y: int, z: int) -> str:
 
 seeds = [0]
 apples = [0]
+quiz = [0]
 tasks = [False, False, False]
 enlarge = [False]
 inventory = []
