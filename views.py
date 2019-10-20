@@ -17,12 +17,17 @@ def hello(world: dict) -> str:
     :return: The HTML to show the player
     """
     for task in tasks:
-        tasks[task] = False
-    for item in inventory:
-        inventory.remove(item)
+        tasks[tasks.index(task)] = False
+    if "hammer" in inventory:
+        inventory.remove("hammer")
+    if "ladder" in inventory:
+        inventory.remove("ladder")
+    if "magnifier" in inventory:
+        inventory.remove("magnifier")
     apples[0] = 0
     seeds[0] = 0
     quiz[0] = 0
+    enlarge[0] = False
     return render_template('home.html')
 
 
@@ -70,7 +75,6 @@ def open_door(world: dict, where: str) -> str:
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
         return render_template("war.html",header="Playing War") + play_war(x, y, z)
-
     if where == "apples":
         tasks[1] = True
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
@@ -91,7 +95,6 @@ def open_door(world: dict, where: str) -> str:
         enlarge[0] = True
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
                                enlarge=enlarge[0], header="Collect the Golden Apples")
-
     if where == "seeds":
         tasks[2] = True
         return render_template("seeds.html",num_of_seeds=seeds[0],tasks=tasks, header="Collect the Seeds")
@@ -110,7 +113,6 @@ def new_conflict(world: dict, where: str) -> str:
     """
     if where == "Battlefield":
         return render_template("Battlefield.html")
-
     if where == "Pageant":
         return render_template("Pageant.html")
     if where == "Underworld":
