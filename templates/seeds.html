@@ -4,7 +4,7 @@
     {% if num_of_seeds == 0 %}
         <h1>Try to find the hidden <span style = "color:gray" onclick=window.location.href="goto/1">seed</span>s.</h1>
     {% elif num_of_seeds == 1 %}
-        <img src="/static/images/white.png" class = "img-thumbnail" onclick=window.location.href="/goto/seeds/goto/2" height = 10 width = 10>
+        <img src="/static/images/white.png" class="img-thumbnail" style="position:relative; left:{{ x_pixel }}px; top:{{ y_pixel }}px" onclick=window.location.href="/goto/seeds/goto/2" height = 10 width = 10>
     {% elif num_of_seeds == 2 %}
         Which god or goddess doesn't fit?
         {% if quiz == 0 %}
@@ -55,7 +55,8 @@
         {% elif not tasks[1] and tasks[0] %}
             <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant">Stop Aphrodite and Hera third</a>
         {% elif tasks[0] and tasks[1] and tasks[2] %}
-            You have solved all the conflicts. Return to Zeus to report your successes.
+            You have solved all the conflicts. Return to Zeus to report your successes. <br>
+            <a class="btn btn-outline-primary" role="button" href="/goto/end">Go home</a>
         {% endif %}
     {% endif %}
 {% endblock %}

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Collect the golden Apples</h1>
 
 
 
@@ -9,7 +8,7 @@
         Collect each apple by clicking on it (although you may need some items to get to some of them).<br><br><br><br><br><br><br>
         <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples/1" height = 150 width = 150>
     {% elif num_of_apples == 1 %}
-        You have collected 1 apple so far, only three more to go!
+        You have collected 1 apple so far, only three more to go!<br>
         {% if "ladder" in inventory %}
             <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples/2" align = right height = 150 width = 150><br>
         {% else %}
@@ -17,28 +16,28 @@
             <img src="/static/images/ladder.png" onclick= window.location.href="/goto/ladder" height = 300 width = 100><br>
         {% endif %}
     {% elif num_of_apples == 2 %}
-        Halfway there! Keep going!
-        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples/3" style="position: relative; left:30px; top:25px" height = 150 width = 150>
+        Halfway there! Keep going!<br><br>
+        <img src="/static/images/golden_apple.png" onclick= window.location.href="/goto/apples/3" style="position: relative; left:220px; top:25px" height = 150 width = 150>
         {% if "hammer" in inventory %}
-            <img src="/static/images/glass.jpg" onclick=style="visibility:hidden" style="position:absolute; left:205px;top:170px" height = 175 width = 175><br>
+            <img src="/static/images/glass.jpg" onclick=style="visibility:hidden" style="position:absolute; left:205px;top:170px" height = 200 width = 200><br>
         {% else %}
-            <img src="/static/images/glass.jpg" style="position:absolute; left:205px;top:170px" height = 175 width = 175><br>
-            <img src="/static/images/hammer.png" onclick= window.location.href="/goto/hammer/" height = 200 width = 150>
+            <img src="/static/images/glass.jpg" style="position:absolute; left:205px;top:170px" height = 200 width = 200><br>
+            <img src="/static/images/hammer.png" onclick= window.location.href="/goto/hammer/" height = 150 width = 150>
         {% endif %}
 
     {% elif num_of_apples == 3 %}
-        You only need one more!
+        You only need one more!<br><br>
         {% if "magnifier" in inventory and enlarge == False %}
-           <img src="/static/images/golden_apple.png" onclick=window.location.href="/goto/enlarge/" height = 15 width = 15>
+           <img style="left:567px;top:200px" src="/static/images/golden_apple.png" onclick=window.location.href="/goto/enlarge/" height = 15 width = 15>
         {% elif "magnifier" not in inventory %}
            <img src="/static/images/magnifier.jpg" onclick=window.location.href="/goto/magnifier/" height = 200 width = 150>
-           <img src="/static/images/golden_apple.png" height = 15 width = 15>
+           <img style="left:567px;top:200px" src="/static/images/golden_apple.png" height = 15 width = 15>
         {% elif "magnifier" in inventory and enlarge == True %}
-            <img src="/static/images/golden_apple.png" onclick=window.location.href="/goto/apples/4" height = 150 width = 150>
+            <img style="left:567px;top:200px" src="/static/images/golden_apple.png" onclick=window.location.href="/goto/apples/4" height = 150 width = 150>
         {% endif %}
 
     {% elif num_of_apples == 4 %}
-        After collecting all 4 golden apples you have utterly defeated Hera and Aphrodite.<br>
+        After collecting all 4 golden apples you have utterly defeated Hera and Aphrodite.<br><br>
         {% if not tasks[0] and not tasks[2] %}
             <div class="btn-group-vertical">
                 <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a>
@@ -49,7 +48,8 @@
         {% elif not tasks[2] and tasks[0] %}
             <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld">Stop Persephone and Hades third.</a>
         {% elif tasks[0] and tasks[1] and tasks[2] %}
-            You have solved all the conflicts. Return to Zeus to report your successes.
+            You have solved all the conflicts. Return to Zeus to report your successes.<br><br>
+            <a class="btn btn-outline-primary" role="button" href="/goto/end">Go home</a>
         {% endif %}
 
     {% endif %}

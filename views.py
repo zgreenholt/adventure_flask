@@ -69,32 +69,34 @@ def open_door(world: dict, where: str) -> str:
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
-        return render_template("war.html") + play_war(x, y, z)
+        return render_template("war.html",header="Playing War") + play_war(x, y, z)
 
     if where == "apples":
         tasks[1] = True
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
-                               enlarge=enlarge[0])
+                               enlarge=enlarge[0], header="Collect the Golden Apples")
     if where == "ladder":
         inventory.append("ladder")
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
-                               enlarge=enlarge[0])
+                               enlarge=enlarge[0], header="Collect the Golden Apples")
     if where == "hammer":
         inventory.append("hammer")
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
-                               enlarge=enlarge[0])
+                               enlarge=enlarge[0], header="Collect the Golden Apples")
     if where == "magnifier":
         inventory.append("magnifier")
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
-                               enlarge=enlarge[0])
+                               enlarge=enlarge[0], header="Collect the Golden Apples")
     if where == "enlarge":
         enlarge[0] = True
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
-                               enlarge=enlarge[0])
+                               enlarge=enlarge[0], header="Collect the Golden Apples")
 
     if where == "seeds":
         tasks[2] = True
-        return render_template("seeds.html",num_of_seeds=seeds[0],tasks=tasks)
+        return render_template("seeds.html",num_of_seeds=seeds[0],tasks=tasks, header="Collect the Seeds")
+    if where == "end":
+        return render_template("end.html")
 
 
 @simple_route("/goto/Throne/goto/<where>")
@@ -118,7 +120,7 @@ def new_conflict(world: dict, where: str) -> str:
 def increment_apples(world: dict, num: str) -> str:
     apples[0] = int(num)
     return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
-                               enlarge=enlarge[0])
+                               enlarge=enlarge[0], header="Collect the Golden Apples")
 
 @simple_route("/goto/seeds/goto/<num>")
 def increment_seeds(world: dict, num: str) -> str:
@@ -126,12 +128,14 @@ def increment_seeds(world: dict, num: str) -> str:
         return render_template("seeds_3.html")
     else:
         seeds[0] = int(num)
-        return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks, quiz=quiz[0])
+        x = random.randrange(1,1500)
+        y = random.randrange(1,500)
+        return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks, quiz=quiz[0], x_pixel=x, y_pixel=y, header="Collect the Seeds")
 
 @simple_route("/goto/seeds/goto/2/<num>")
 def new_quiz(world: dict, num: str) -> str:
     quiz[0] = int(num)
-    return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks, quiz=quiz[0])
+    return render_template("seeds.html", num_of_seeds=seeds[0], tasks=tasks, quiz=quiz[0], header="Collect the Seeds")
 
 
 
@@ -196,7 +200,7 @@ def play_war(x: int, y: int, z: int) -> str:
         
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
-            Now it's time to stop the other gods.
+            Now it's time to stop the other gods.<br><br>
             <div class = "btn-group-vertical">
                 <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a>
                 <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>
@@ -206,21 +210,22 @@ def play_war(x: int, y: int, z: int) -> str:
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
-            Now it's time to stop the other gods.
+            Now it's time to stop the other gods.<br><br>
             <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades third.</a>"""
         if not tasks[1] and tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
-            Now it's time to stop the other gods.
+            Now it's time to stop the other gods.<br><br>
             <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera third.</a>"""
         if tasks[1] and tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br><br>
-            You have resolved all conflicts. Report to Zeus."""
+            You have resolved all conflicts. Report to Zeus. <br><br>
+            <a class="btn btn-outline-primary" role="button" href="/goto/end">Go home</a>"""
     elif y > z and y > x:
         return display_results(x, y, z) + """
             
@@ -240,9 +245,9 @@ def display_results(x: int, y: int, z: int) -> str:
             <table class="table table-dark">
                 <tbody>
                     <tr> 
-                        <td><img src="/static/images/""" + str(x) + """.png" height="200" width="150"><br></td>
-                        <td><img src="/static/images/""" + str(y) + """.png" height="200" width="150"><br></td>
-                        <td><img src="/static/images/""" + str(z) + """.png" height="200" width="150"><br></td>
+                        <td><img class="rounded" src="/static/images/""" + str(x) + """.png" height="200" width="150"><br></td>
+                        <td><img class="rounded" src="/static/images/""" + str(y) + """.png" height="200" width="150"><br></td>
+                        <td><img class="rounded" src="/static/images/""" + str(z) + """.png" height="200" width="150"><br></td>
                     </tr>    
                 </tbody>    
             </table>        
