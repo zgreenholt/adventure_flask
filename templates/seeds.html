@@ -44,7 +44,7 @@
             </table>
         {% endif %}
     {% elif num_of_seeds == 4 %}
-        You found all the seeds!<br>
+        You found all the seeds!<br><br>
         {% if not tasks[0] and not tasks[1] %}
             <div class="btn-group-vertical">
                 <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Battlefield">Stop Athena and Ares second.</a>
@@ -55,7 +55,7 @@
         {% elif not tasks[1] and tasks[0] %}
             <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant">Stop Aphrodite and Hera third</a>
         {% elif tasks[0] and tasks[1] and tasks[2] %}
-            You have solved all the conflicts. Return to Zeus to report your successes. <br>
+            You have solved all the conflicts. Return to Zeus to report your successes. <br><br>
             <a class="btn btn-outline-primary" role="button" href="/goto/end">Go home</a>
         {% endif %}
     {% endif %}
