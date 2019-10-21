@@ -74,7 +74,7 @@ def open_door(world: dict, where: str) -> str:
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
-        return render_template("war.html",header="Playing War") + play_war(x, y, z)
+        return render_template("War.html",header="Playing War") + play_war(x, y, z)
     if where == "apples":
         tasks[1] = True
         return render_template("apples.html", num_of_apples=apples[0], tasks=tasks, inventory=inventory,
