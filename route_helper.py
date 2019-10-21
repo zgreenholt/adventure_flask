@@ -14,7 +14,12 @@ from flask import request, session, redirect
 from app import app
 
 INITIAL_WORLD = {
-    "seeds": 0
+    "seeds": 0,
+    "apples": 0,
+    "quiz": 0,
+    "inventory": [],
+    "tasks": [False, False, False],
+    "enlarge": False
 }
 
 
