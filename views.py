@@ -175,7 +175,7 @@ def play_war(x: int, y: int, z: int) -> str:
         if z > x:
             return display_results(x, y, z) + """
             
-            Ares won and now his ego is too big. <br><br>
+            Ares won and now his ego is too big.<br><br>
             <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
@@ -185,7 +185,7 @@ def play_war(x: int, y: int, z: int) -> str:
         if y > x:
             return display_results(x, y, z) + """
 
-            Athena won and now her ego is too big. <br><br>
+            Athena won and now her ego is too big.<br><br>
             <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
             """
         else:
@@ -231,13 +231,13 @@ def play_war(x: int, y: int, z: int) -> str:
     elif y > z and y > x:
         return display_results(x, y, z) + """
             
-        Athena won and now her ego is too big. <br>
+        Athena won and now her ego is too big. <br><br>
         <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif z > x and z > y:
         return display_results(x, y, z) + """
 
-        Ares won and now his ego is too big. <br>
+        Ares won and now his ego is too big. <br><br>
         <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
         """
 
