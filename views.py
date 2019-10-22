@@ -59,13 +59,12 @@ def open_door(world: dict, where: str) -> str:
         return GAME_HEADER + """
         """
     if where == "war":
-        world["tasks"][0] = True
+
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
         return render_template("War.html", header="Playing War") + play_war(x, y, z, world["tasks"])
     if where == "apples":
-        world["tasks"][1] = True
         return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
     if where == "ladder":
@@ -85,7 +84,6 @@ def open_door(world: dict, where: str) -> str:
         return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
     if where == "seeds":
-        world["tasks"][2] = True
         return render_template("seeds.html",num_of_seeds=world["seeds"], tasks=world["tasks"], header="Collect the Seeds")
     if where == "end":
         return render_template("end.html")
@@ -109,12 +107,16 @@ def new_conflict(world: dict, where: str) -> str:
 
 @simple_route("/goto/apples/<num>")
 def increment_apples(world: dict, num: str) -> str:
+    if int(num) == 4:
+        world["tasks"][1] = True
     world["apples"] = int(num)
     return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
 
 @simple_route("/goto/seeds/goto/<num>")
 def increment_seeds(world: dict, num: str) -> str:
+    if int(num) == 4:
+        world["tasks"][2] = True
     if int(num) == 3:
         return render_template("seeds_3.html")
     else:
@@ -186,6 +188,7 @@ def play_war(x: int, y: int, z: int, tasks: [bool]) -> str:
         <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif x > y and x > z:
+        tasks[0] = True
         if (not tasks[1]) and (not tasks[2]):
             return display_results(x, y, z) + """
         
