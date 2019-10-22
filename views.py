@@ -186,7 +186,7 @@ def play_war(x: int, y: int, z: int, tasks: [bool]) -> str:
         <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
         """
     elif x > y and x > z:
-        if not tasks[1] and not tasks[2]:
+        if (not tasks[1]) and (not tasks[2]):
             return display_results(x, y, z) + """
         
             You won!! Ares and Athena have been defeated by <br>
@@ -196,14 +196,14 @@ def play_war(x: int, y: int, z: int, tasks: [bool]) -> str:
                 <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a>
                 <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>
             </div>"""
-        if tasks[1] and not tasks[2]:
+        if tasks[1] and (not tasks[2]):
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
             a mere mortal. They don't have the will to keep fighting. <br>
             Now it's time to stop the other gods.<br><br>
             <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades third.</a>"""
-        if not tasks[1] and tasks[2]:
+        if (not tasks[1]) and tasks[2]:
             return display_results(x, y, z) + """
 
             You won!! Ares and Athena have been defeated by <br>
