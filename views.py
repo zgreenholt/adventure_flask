@@ -76,7 +76,7 @@ def open_door(world: dict, where: str) -> str:
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
-        return render_template("War.html", header="Playing War") + play_war(x, y, z)
+        return render_template("War.html", header="Playing War") + play_war(x, y, z, world["tasks"])
     if where == "apples":
         world["tasks"][1] = True
         return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
@@ -163,7 +163,7 @@ def save_name(world: dict, monsters_name: str) -> str:
     """.format(where=world['location'], monster_name=world['name'])
 
 
-def play_war(x: int, y: int, z: int) -> str:
+def play_war(x: int, y: int, z: int, tasks: [bool]) -> str:
     a = random.randrange(2, 15)
     b = random.randrange(2, 15)
     c = random.randrange(2, 15)
@@ -171,7 +171,7 @@ def play_war(x: int, y: int, z: int) -> str:
         return display_results(x, y, z) + """
         
         WAR!!<br>
-        """ + play_war(a, b, c)
+        """ + play_war(a, b, c, tasks)
 
     elif x == y:
         if z > x:
@@ -182,7 +182,7 @@ def play_war(x: int, y: int, z: int) -> str:
             """
         else:
             return display_results(x, y, z) + """
-            WAR!!<br>""" + play_war(a, b, 0)
+            WAR!!<br>""" + play_war(a, b, 0, tasks)
     elif x == z:
         if y > x:
             return display_results(x, y, z) + """
@@ -192,7 +192,7 @@ def play_war(x: int, y: int, z: int) -> str:
             """
         else:
             return display_results(x, y, z) + """
-            WAR!!<br>""" + play_war(a, 0, c)
+            WAR!!<br>""" + play_war(a, 0, c, tasks)
     elif y == z:
         return display_results(x, y, z) + """
         You lost.<br><br>
@@ -257,5 +257,3 @@ def display_results(x: int, y: int, z: int) -> str:
             </table>        
             """
 
-tasks = [False, False, False]
-inventory = []
