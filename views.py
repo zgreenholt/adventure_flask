@@ -16,14 +16,14 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    for task in tasks:
-        tasks[tasks.index(task)] = False
-    if "hammer" in inventory:
-        inventory.remove("hammer")
-    if "ladder" in inventory:
-        inventory.remove("ladder")
-    if "magnifier" in inventory:
-        inventory.remove("magnifier")
+    for task in world["tasks"]:
+        world["tasks"][world["tasks"].index(task)] = False
+    if "hammer" in world["inventory"]:
+        world["inventory"].remove("hammer")
+    if "ladder" in world["inventory"]:
+        world["inventory"].remove("ladder")
+    if "magnifier" in world["inventory"]:
+        world["inventory"].remove("magnifier")
     world["apples"] = 0
     world['seeds'] = 0
     world["quiz"] = 0
@@ -72,34 +72,34 @@ def open_door(world: dict, where: str) -> str:
         return GAME_HEADER + """
         """
     if where == "war":
-        tasks[0] = True
+        world["tasks"][0] = True
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
         return render_template("War.html", header="Playing War") + play_war(x, y, z)
     if where == "apples":
-        tasks[1] = True
-        return render_template("apples.html", num_of_apples=world["apples"], tasks=tasks, inventory=inventory,
+        world["tasks"][1] = True
+        return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
     if where == "ladder":
-        inventory.append("ladder")
-        return render_template("apples.html", num_of_apples=world["apples"], tasks=tasks, inventory=inventory,
+        world["inventory"].append("ladder")
+        return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
     if where == "hammer":
-        inventory.append("hammer")
-        return render_template("apples.html", num_of_apples=world["apples"], tasks=tasks, inventory=inventory,
+        world["inventory"].append("hammer")
+        return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
     if where == "magnifier":
-        inventory.append("magnifier")
-        return render_template("apples.html", num_of_apples=world["apples"], tasks=tasks, inventory=inventory,
+        world["inventory"].append("magnifier")
+        return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
     if where == "enlarge":
         world['enlarge'] = True
-        return render_template("apples.html", num_of_apples=world["apples"], tasks=tasks, inventory=inventory,
+        return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
     if where == "seeds":
-        tasks[2] = True
-        return render_template("seeds.html",num_of_seeds=world["seeds"], tasks=tasks, header="Collect the Seeds")
+        world["tasks"][2] = True
+        return render_template("seeds.html",num_of_seeds=world["seeds"], tasks=world["tasks"], header="Collect the Seeds")
     if where == "end":
         return render_template("end.html")
 
@@ -123,7 +123,7 @@ def new_conflict(world: dict, where: str) -> str:
 @simple_route("/goto/apples/<num>")
 def increment_apples(world: dict, num: str) -> str:
     world["apples"] = int(num)
-    return render_template("apples.html", num_of_apples=world["apples"], tasks=tasks, inventory=inventory,
+    return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
 
 @simple_route("/goto/seeds/goto/<num>")
@@ -134,12 +134,12 @@ def increment_seeds(world: dict, num: str) -> str:
         world['seeds'] = int(num)
         x = random.randrange(1,1500)
         y = random.randrange(1,500)
-        return render_template("seeds.html", num_of_seeds=world['seeds'], tasks=tasks, quiz=world["quiz"], x_pixel=x, y_pixel=y, header="Collect the Seeds")
+        return render_template("seeds.html", num_of_seeds=world['seeds'], tasks=world["tasks"], quiz=world["quiz"], x_pixel=x, y_pixel=y, header="Collect the Seeds")
 
 @simple_route("/goto/seeds/goto/2/<num>")
 def new_quiz(world: dict, num: str) -> str:
     world["quiz"] = int(num)
-    return render_template("seeds.html", num_of_seeds=world["seeds"], tasks=tasks, quiz=world["quiz"], header="Collect the Seeds")
+    return render_template("seeds.html", num_of_seeds=world["seeds"], tasks=world["tasks"], quiz=world["quiz"], header="Collect the Seeds")
 
 
 
