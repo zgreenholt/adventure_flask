@@ -16,19 +16,6 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    for task in world["tasks"]:
-        world["tasks"][world["tasks"].index(task)] = False
-    if "hammer" in world["inventory"]:
-        world["inventory"].remove("hammer")
-    if "ladder" in world["inventory"]:
-        world["inventory"].remove("ladder")
-    if "magnifier" in world["inventory"]:
-        world["inventory"].remove("magnifier")
-    world["apples"] = 0
-    world['seeds'] = 0
-    world["quiz"] = 0
-    world["enlarge"] = False
-
     return render_template('home.html')
 
 
