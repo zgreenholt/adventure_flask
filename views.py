@@ -2,12 +2,6 @@ from route_helper import simple_route
 from flask import render_template
 import random
 
-GAME_HEADER = """
-<h1>Welcome to Quest of the Gods</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-"""
-
-
 @simple_route('/')
 def hello(world: dict) -> str:
     """
@@ -17,25 +11,6 @@ def hello(world: dict) -> str:
     :return: The HTML to show the player
     """
     return render_template('home.html')
-
-
-
-ENCOUNTER_MONSTER = """
-<!-- Curly braces let us inject values into the string -->
-You are in {}. You found a monster!<br>
-
-<!-- Image taken from site that generates random Corgi pictures-->
-<img src="http://placecorgi.com/260/180" /><br>
-<img src="/static/Mike_Wazowski.jpg" /><br>   
-What is its name?
-
-<!-- Form allows you to have more text entry -->    
-<form action="/save/name/">
-    <input type="text" name="player"><br>
-    <input type="submit" value="Submit"><br>
-</form>
-"""
-
 
 @simple_route('/goto/<where>/')
 def open_door(world: dict, where: str) -> str:
@@ -53,17 +28,16 @@ def open_door(world: dict, where: str) -> str:
 
     if where == "Earth":
         return render_template("Earth.html")
+
     if where == "Throne":
         return render_template('Throne.html')
-    if where == "Vault Gate":
-        return GAME_HEADER + """
-        """
-    if where == "war":
 
+    if where == "war":
         x = random.randrange(2, 15)
         y = random.randrange(2, 15)
         z = random.randrange(2, 15)
         return render_template("War.html", header="Playing War") + play_war(x, y, z, world["tasks"])
+
     if where == "apples":
         return render_template("apples.html", num_of_apples=world["apples"], tasks=world["tasks"], inventory=world["inventory"],
                                enlarge=world['enlarge'], header="Collect the Golden Apples")
@@ -131,119 +105,45 @@ def new_quiz(world: dict, num: str) -> str:
     return render_template("seeds.html", num_of_seeds=world["seeds"], tasks=world["tasks"], quiz=world["quiz"], header="Collect the Seeds")
 
 
-
-
-
-
-@simple_route("/save/name/")
-def save_name(world: dict, monsters_name: str) -> str:
-    """
-    Update the name of the monster.
-
-    :param world: The current world
-    :param monsters_name:
-    :return:
-    """
-    world['name'] = monsters_name
-
-    return GAME_HEADER + """You are in {where}, and you are nearby {monster_name}
-    <br><br>
-    <a href='/'>Return to the start</a>
-    """.format(where=world['location'], monster_name=world['name'])
-
-
 def play_war(x: int, y: int, z: int, tasks: [bool]) -> str:
     a = random.randrange(2, 15)
     b = random.randrange(2, 15)
     c = random.randrange(2, 15)
+    display = render_template("display_results.html", x=str(x), y=str(y), z=str(z))
     if x == y == z:
-        return display_results(x, y, z) + """
-        
-        WAR!!<br>
-        """ + play_war(a, b, c, tasks)
-
+        return display + """WAR!!<br>""" + play_war(a, b, c, tasks)
     elif x == y:
         if z > x:
-            return display_results(x, y, z) + """
-            
-            Ares won and now his ego is too big.<br><br>
-            <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
-            """
+            return display + render_template("/War_Outcomes/Ares_wins.html")
         else:
-            return display_results(x, y, z) + """
-            WAR!!<br>""" + play_war(a, b, 0, tasks)
+            return display + """WAR!!<br>""" + play_war(a, b, 0, tasks)
     elif x == z:
         if y > x:
-            return display_results(x, y, z) + """
-
-            Athena won and now her ego is too big.<br><br>
-            <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
-            """
+            return display + render_template("/War_Outcomes/Athena_wins.html")
         else:
-            return display_results(x, y, z) + """
-            WAR!!<br>""" + play_war(a, 0, c, tasks)
+            return display + """WAR!!<br>""" + play_war(a, 0, c, tasks)
     elif y == z:
-        return display_results(x, y, z) + """
-        You lost.<br><br>
-        <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
-        """
+        if x > y:
+            tasks[0] = True
+            return display + check_tasks(tasks)
+        else:
+            return display + render_template("/War_Outcomes/Loss.html")
     elif x > y and x > z:
         tasks[0] = True
-        if (not tasks[1]) and (not tasks[2]):
-            return display_results(x, y, z) + """
-        
-            You won!! Ares and Athena have been defeated by <br>
-            a mere mortal. They don't have the will to keep fighting. <br>
-            Now it's time to stop the other gods.<br><br>
-            <div class = "btn-group-vertical">
-                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera second.</a>
-                <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades second.</a>
-            </div>"""
-        if tasks[1] and (not tasks[2]):
-            return display_results(x, y, z) + """
-
-            You won!! Ares and Athena have been defeated by <br>
-            a mere mortal. They don't have the will to keep fighting. <br>
-            Now it's time to stop the other gods.<br><br>
-            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Underworld"> Stop Persephone and Hades third.</a>"""
-        if (not tasks[1]) and tasks[2]:
-            return display_results(x, y, z) + """
-
-            You won!! Ares and Athena have been defeated by <br>
-            a mere mortal. They don't have the will to keep fighting. <br>
-            Now it's time to stop the other gods.<br><br>
-            <a class="btn btn-outline-primary" role="button" href="/goto/Throne/goto/Pageant"> Stop Aphrodite and Hera third.</a>"""
-        if tasks[1] and tasks[2]:
-            return display_results(x, y, z) + """
-
-            You won!! Ares and Athena have been defeated by <br>
-            a mere mortal. They don't have the will to keep fighting. <br><br>
-            You have resolved all conflicts. Report to Zeus. <br><br>
-            <a class="btn btn-outline-primary" role="button" href="/goto/end">Go home</a>"""
+        return display + check_tasks(tasks)
     elif y > z and y > x:
-        return display_results(x, y, z) + """
-            
-        Athena won and now her ego is too big. <br><br>
-        <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
-        """
+        return display + render_template("/War_Outcomes/Athena_wins.html")
     elif z > x and z > y:
-        return display_results(x, y, z) + """
-
-        Ares won and now his ego is too big. <br><br>
-        <input type ="button" class="btn btn-outline-danger" value="Try Again" onclick=window.location.href=window.location.href>
-        """
+        return display + render_template("/War_Outcomes/Ares_wins.html")
 
 
-def display_results(x: int, y: int, z: int) -> str:
-    return """
-            <table class="table table-dark">
-                <tbody>
-                    <tr> 
-                        <td><img class="rounded" src="/static/images/""" + str(x) + """.png" height="200" width="150"><br></td>
-                        <td><img class="rounded" src="/static/images/""" + str(y) + """.png" height="200" width="150"><br></td>
-                        <td><img class="rounded" src="/static/images/""" + str(z) + """.png" height="200" width="150"><br></td>
-                    </tr>    
-                </tbody>    
-            </table>        
-            """
+def check_tasks(tasks: [bool]) -> str:
+    if (not tasks[1]) and (not tasks[2]):
+        return render_template("/War_Outcomes/win_options/war_first.html")
+    if tasks[1] and (not tasks[2]):
+        return render_template("/War_Outcomes/win_options/pageant_war.html")
+    if (not tasks[1]) and tasks[2]:
+        return render_template("/War_Outcomes/win_options/underworld_war.html")
+    if tasks[1] and tasks[2]:
+        return render_template("/War_Outcomes/win_options/war_last.html")
 
